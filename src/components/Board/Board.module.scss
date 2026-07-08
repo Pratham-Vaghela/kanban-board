@@ -1,7 +1,7 @@
-.sidebar{
+.board{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid: 1rem;
+    gap: 0.5rem;
     padding: 1rem;
     flex: 1;
 }

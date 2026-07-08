@@ -1,9 +1,10 @@
 import styles from "./Column.module.scss";
 
-function Column({title}){
+function Column({title, children}){
     return (
     <section className={styles.column}>
         <h1>{title}</h1>
+        {children}
     </section>
     );
 }
