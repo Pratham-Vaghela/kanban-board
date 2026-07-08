@@ -1,6 +1,8 @@
+import styles from "./Sidebar.module.scss";
+
 function Sidebar(){
     return (
-        <aside>
+        <aside className={styles.sidebar}>
             Sidebar
         </aside>
     );

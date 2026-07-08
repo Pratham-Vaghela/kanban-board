@@ -1,16 +1,17 @@
 import Header from "./components/Header/header"
 import Sidebar from "./components/sidebar/Sidebar"
 import Board from "./components/Board/Board"
+import styles from "./App.module.scss";
 function App() {
   return (
-    <>
-    <Header/>
+    <div className={styles.app}>
+      <Header/>
 
-    <main>
-      <Sidebar/>
-      <Board/>
-    </main>
-    </>
+      <main className={styles.main}>
+        <Sidebar/>
+        <Board/>
+      </main>
+    </div>
   );
 }
 

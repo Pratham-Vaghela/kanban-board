@@ -1,0 +1,7 @@
+@use "../../styles/abstracts/variables" as *;
+
+.column{
+    min-height: 500px;
+    padding: 1rem;
+    background: $column-color;
+}

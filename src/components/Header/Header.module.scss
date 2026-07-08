@@ -1,0 +1,8 @@
+@use "../../styles/abstracts/mixins";
+@use "../../styles/abstracts/variables" as *;
+
+.header{
+    @include mixins.flex-center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid $border-color;
+}

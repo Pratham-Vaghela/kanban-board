@@ -1,4 +1,5 @@
 import Column from "../Column/Column";
+import styles from "./board.module.scss"
 
 function Board(){
     const columns = [
@@ -9,7 +10,7 @@ function Board(){
     ];
 
     return (
-        <section>
+        <section className={styles.board}>
             {columns.map((title) => (<Column key={title} title={title}/>))}
         </section>
     );

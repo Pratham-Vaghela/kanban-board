@@ -1,0 +1,7 @@
+@use "../../styles/abstracts/variables" as *;
+
+.sidebar{
+    width: 240px;
+    border-right: 1px solid $border-color;
+    padding: 1rem;
+}

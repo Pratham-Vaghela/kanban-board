@@ -1,0 +1,7 @@
+.sidebar{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid: 1rem;
+    padding: 1rem;
+    flex: 1;
+}
