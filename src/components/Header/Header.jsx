@@ -1,10 +1,10 @@
 import styles from "./Header.module.scss";
 
-function Header() {
+function Header({onAddTask}) {
   return (
     <header className={styles.header}>
       <h1>Kanban board</h1>
-      <button>Add Task</button>
+      <button onClick={onAddTask}>Add Task</button>
     </header>
   )
 }

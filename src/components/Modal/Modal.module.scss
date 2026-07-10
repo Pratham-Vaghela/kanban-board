@@ -1,0 +1,24 @@
+@use "./../../styles/abstracts/mixins";
+@use "./../../styles/abstracts/variables" as *;
+@use "sass:color";
+.overlay{
+    @include mixins.flex-center;
+
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.872);
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.modal {
+    width: 100%;
+    max-width: 550px;
+    background-color: $secondry-color;
+    border-radius: $radius-md;
+    z-index: 1;
+    padding: 1.5rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+

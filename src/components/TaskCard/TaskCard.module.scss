@@ -1,11 +1,11 @@
 @use "./../../styles/abstracts/variables" as *;
 
 .TaskCard{
-    background-color: plum;
+    background-color: $task-color;
+    border: 2px solid rgb(200, 3, 3);
     padding: $spacing-md;
     border: $radius-md;
     margin-bottom: $spacing-md;
-    border: 2x solid $border-color;
     
     & h3{
         margin-bottom: $spacing-md;
