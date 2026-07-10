@@ -80,7 +80,7 @@ function App() {
       </main>
 
       {isModalOpen && (
-        <Modal>
+        <Modal onClose={() => setIsModalOpen(false)}>
           <TaskForm
             formData={formData}
             onChange={handleChange}
