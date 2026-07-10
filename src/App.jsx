@@ -12,8 +12,8 @@ function App() {
   const [formData, setFormData] = useState({
     title : "",
     description : "",
-    status : "Todo",
-    priority : "High",
+    status : "todo",
+    priority : "high",
   });
 
   const [Tasks, setTasks] = useState([
@@ -62,12 +62,46 @@ function App() {
     }))
   }
 
+  const [errors, setErrors] = useState({
+    title: false,
+    description: false,
+  });
+
   function handleSubmit(e){
     e.preventDefault();
-    if(!formData.title.trim()){
-      alert("Tiitle is required")
+
+    const newErrors = {
+      title: !formData.title.trim(),
+      description: !formData.description.trim(),
+    };
+
+    setErrors(newErrors);
+
+    if (newErrors.title || newErrors.description) { 
       return;
     }
+
+    const newTask = {
+      id : crypto.randomUUID(),
+      ...formData,
+    }
+
+    setTasks((prev) => [...prev, newTask])
+
+    setErrors({
+      title: false,
+      description: false,
+    });
+
+    setFormData({
+      title: "",
+      description: "",
+      status: "todo",
+      priority: "high",
+    });
+
+
+    setIsModalOpen(false)
   }
 
   return (
@@ -82,6 +116,7 @@ function App() {
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <TaskForm
+            errors={errors}
             formData={formData}
             onChange={handleChange}
             onSubmit={handleSubmit}

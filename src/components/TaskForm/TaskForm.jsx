@@ -1,20 +1,22 @@
 import styles from "./TaskForm.module.scss"
 
-function TaskForm({ formData, onChange, onSubmit }) {
+function TaskForm({ errors, formData, onChange, onSubmit }) {
   return (
-    <form action={onSubmit}>
+    <form onSubmit={onSubmit}>
       <input
         name="title"
         type="text"
         placeholder="Title"
         value={formData.title}
         onChange={onChange}
+        className={errors.title ? styles.errorInput : ""}
       />
       <textarea
         name="description"
         placeholder="Description"
         value={formData.description}
         onChange={onChange}
+        className={errors.description ? styles.errorInput : ""}
       ></textarea>
 
       <select name="status" value={formData.status} onChange={onChange}>
