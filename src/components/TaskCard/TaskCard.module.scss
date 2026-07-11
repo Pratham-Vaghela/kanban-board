@@ -1,22 +1,35 @@
 @use "./../../styles/abstracts/variables" as *;
+@use "./../../styles/abstracts/mixins";
 
-.TaskCard{
+.TaskCard{            
     background-color: $task-color;
-    border: 2px solid rgb(200, 3, 3);
     padding: $spacing-md;
-    border: $radius-md;
+    border-radius: $radius-md;
     margin-bottom: $spacing-md;
     
     & h3{
-        margin-bottom: $spacing-md;
+        margin-bottom: 10px;
     }
     & p{
         margin-bottom: $spacing-md;
+        background-color: rgba($color: $secondry-color, $alpha: 0.4);
+        border-radius: $radius-md;
+        padding: $spacing-md;
     }
     & span{
         display: inline-block;
         padding: $spacing-md;
         border-radius: $radius-md;
-        background-color: #fee2e2;
     }
+}
+
+.high{
+    @include mixins.priority(red)
+}
+
+.medium{
+    @include mixins.priority(green)
+}
+.low{
+    @include mixins.priority(blue)
 }

@@ -15,11 +15,11 @@
         width: 150px;
         height: 30px;
         border-radius: $radius-sm;
-        color: $task-color;
+        color: rgba($color: $task-color, $alpha: 0.5);
         border:3px dotted hsla(0, 0%, 0%, 0.671);
         font-weight: 600;
         transition: 
-            color 0.1s ease,
+            color 0.3s ease,
             border-color 0.1s ease;
 
         &:hover{

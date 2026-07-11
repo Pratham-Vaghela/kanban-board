@@ -20,16 +20,16 @@ function TaskForm({ errors, formData, onChange, onSubmit }) {
       ></textarea>
 
       <select name="status" value={formData.status} onChange={onChange}>
-        <option value="Todo">Todo</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Review">Review</option>
-        <option value="Done">Done</option>
+        <option value="todo">Todo</option>
+        <option value="in-progress">In Progress</option>
+        <option value="review">Review</option>
+        <option value="done">Done</option>
       </select>
 
       <select name="priority" value={formData.priority} onChange={onChange}>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
       </select>
 
       <button className={styles.addBtn}>Add</button>

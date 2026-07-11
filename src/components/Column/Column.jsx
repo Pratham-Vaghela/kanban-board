@@ -3,7 +3,7 @@ import styles from "./Column.module.scss";
 function Column({title, children}){
     return (
     <section className={styles.column}>
-        <h1>{title}</h1>
+        <h2>{title}</h2>
         {children}
     </section>
     );

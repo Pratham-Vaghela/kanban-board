@@ -4,7 +4,8 @@ import Board from "./components/Board/Board"
 import styles from "./App.module.scss";
 import Modal from "./components/Modal/Modal";
 import TaskForm from "./components/TaskForm/TaskForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -16,43 +17,7 @@ function App() {
     priority : "high",
   });
 
-  const [Tasks, setTasks] = useState([
-    {
-      id: "1",
-      title: "Learn React",
-      description: "Understand components and props",
-      priority: "High",
-      status: "todo",
-    },
-    {
-      id: "2",
-      title: "Learn SCSS",
-      description: "Practice variables and mixins",
-      priority: "Medium",
-      status: "todo",
-    },
-    {
-      id: "3",
-      title: "Build Board Layout",
-      description: "Create responsive layout",
-      priority: "High",
-      status: "in-progress",
-    },
-    {
-      id: "4",
-      title: "Review Code",
-      description: "Refactor components",
-      priority: "Low",
-      status: "review",
-    },
-    {
-      id: "5",
-      title: "Setup Project",
-      description: "Initialize Vite project",
-      priority: "Low",
-      status: "done",
-    },
-  ]);
+  const [Tasks, setTasks] = useState([]);
 
   function handleChange(e){
     const {name, value} = e.target
@@ -60,6 +25,10 @@ function App() {
       ...prev,
       [name] : value,
     }))
+  }
+
+  function handleDelete(id){
+    setTasks((prevTask) => prevTask.filter((task) => task.id !== id))
   }
 
   const [errors, setErrors] = useState({
@@ -103,6 +72,9 @@ function App() {
 
     setIsModalOpen(false)
   }
+  useEffect(() => {
+    console.log("Tasks updated:", Tasks);
+  }, [Tasks]);
 
   return (
     <div className={styles.app}>
@@ -110,7 +82,7 @@ function App() {
 
       <main className={styles.main}>
         <Sidebar />
-        <Board tasks={Tasks}/>
+        <Board tasks={Tasks} onDelete={handleDelete}/>
       </main>
 
       {isModalOpen && (
