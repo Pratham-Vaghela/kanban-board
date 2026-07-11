@@ -19,6 +19,8 @@ function App() {
 
   const [Tasks, setTasks] = useState([]);
 
+  const [editingTask, setEditingTask] = useState(null);
+
   function handleChange(e){
     const {name, value} = e.target
     setFormData((prev) => ({
@@ -29,6 +31,14 @@ function App() {
 
   function handleDelete(id){
     setTasks((prevTask) => prevTask.filter((task) => task.id !== id))
+  }
+
+  function handleEdit(id){
+    setIsModalOpen(true);
+    const editTask = Tasks.find((task) => task.id === id)
+    setEditingTask(editTask)
+    setFormData(editTask)
+    // console.log(editTask);
   }
 
   const [errors, setErrors] = useState({
@@ -50,12 +60,19 @@ function App() {
       return;
     }
 
-    const newTask = {
-      id : crypto.randomUUID(),
-      ...formData,
-    }
 
-    setTasks((prev) => [...prev, newTask])
+    if(editingTask){
+        setTasks((prev) => 
+          prev.map((task) => 
+            task.id === editingTask.id ? {...task, ...formData} : task))
+    } else{
+        const newTask = {
+          id : crypto.randomUUID(),
+          ...formData,
+        }
+    
+        setTasks((prev) => [...prev, newTask])
+    }
 
     setErrors({
       title: false,
@@ -82,7 +99,11 @@ function App() {
 
       <main className={styles.main}>
         <Sidebar />
-        <Board tasks={Tasks} onDelete={handleDelete}/>
+        <Board
+        tasks={Tasks} 
+        onDelete={handleDelete} 
+        onEdit={handleEdit} 
+        />
       </main>
 
       {isModalOpen && (
@@ -92,6 +113,7 @@ function App() {
             formData={formData}
             onChange={handleChange}
             onSubmit={handleSubmit}
+            isEditing={editingTask}
           />
         </Modal>
       )}

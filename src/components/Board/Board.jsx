@@ -2,7 +2,7 @@ import Column from "../Column/Column";
 import styles from "./Board.module.scss";
 import TaskCard from "../TaskCard/TaskCard";
 
-function Board({tasks, onDelete}){
+function Board({tasks, onDelete, onEdit}){
     const columns = [
     { id: "todo", title: "Todo" },
     { id: "in-progress", title: "In Progress" },
@@ -23,6 +23,7 @@ function Board({tasks, onDelete}){
                             key={task.id} 
                             task={task}
                             onDelete={onDelete}
+                            onEdit={onEdit}
                             />
                         ))}
                     </Column>

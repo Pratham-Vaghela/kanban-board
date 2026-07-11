@@ -1,6 +1,6 @@
 import styles from "./TaskForm.module.scss"
 
-function TaskForm({ errors, formData, onChange, onSubmit }) {
+function TaskForm({ errors, formData, onChange, onSubmit, isEditing}) {
   return (
     <form onSubmit={onSubmit}>
       <input
@@ -32,7 +32,7 @@ function TaskForm({ errors, formData, onChange, onSubmit }) {
         <option value="high">High</option>
       </select>
 
-      <button className={styles.addBtn}>Add</button>
+      <button className={styles.addBtn}>{isEditing ? "Save" : "Add"}</button>
     </form>
   );
 }
