@@ -6,21 +6,27 @@
     padding: $spacing-md;
     border-radius: $radius-md;
     margin-bottom: $spacing-md;
-    
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
     & h3{
+        grid-column: span 12;
         margin-bottom: 10px;
     }
     & p{
+        grid-column: span 12;
         margin-bottom: $spacing-md;
         background-color: rgba($color: $secondry-color, $alpha: 0.4);
         border-radius: $radius-md;
         padding: $spacing-md;
     }
     & span{
+        grid-column: span 4;
+        font-size: small;
         display: inline-block;
         padding: $spacing-md;
         border-radius: $radius-md;
     }
+
 }
 
 .high{
@@ -32,4 +38,23 @@
 }
 .low{
     @include mixins.priority(blue)
+}
+
+.taskBtns{
+    grid-column: 9/13;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 3px;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    justify-content: space-evenly;
+    & .deleteBtn, .editBtn{
+        color: white;
+        cursor: pointer;
+        font-size: 105%;
+        // transition: font-size 0.1s ease;
+
+        &:hover {
+            font-size: 107%;
+        }
+    }
 }

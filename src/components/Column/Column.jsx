@@ -1,9 +1,13 @@
 import styles from "./Column.module.scss";
 
-function Column({title, children}){
+function Column({column, children, onDrop}){
     return (
-    <section className={styles.column}>
-        <h2>{title}</h2>
+    <section 
+    className={styles.column}
+    onDragOver={(e) => e.preventDefault()}
+    onDrop={() => onDrop(column.id)}
+    >
+        <h2>{column.title}</h2>
         {children}
     </section>
     );

@@ -1,21 +1,30 @@
-import styles from './TaskCard.module.scss';    
+import styles from './TaskCard.module.scss';
+import { CiEdit } from "react-icons/ci";
+import { CiTrash } from "react-icons/ci";
 
-function TaskCard({task, onDelete, onEdit}){
+function TaskCard({task, onDelete, onEdit, onDragStart}){
     return (
       <article
         className={`${styles.TaskCard} ${styles[task.priority.toLowerCase()]}`}
+        draggable
+        onDragStart={() => onDragStart(task.id)}
+        onDragEnd={() => console.log("drag end")
+        }
       >
         <h3>{task.title}</h3>
 
         <p>{task.description}</p>
 
         <span>{task.priority.toUpperCase()}</span>
-        <button type="button" onClick={() => onDelete(task.id)}>
-          Delete
-        </button>
-        <button type="button" onClick={() => onEdit(task.id)}>
-          Edit
-        </button>
+        <div className={styles.taskBtns}>
+
+          <button type="button" onClick={() => onDelete(task.id)}>
+            <CiTrash className={styles.deleteBtn}/>
+          </button>
+          <button type="button" onClick={() => onEdit(task.id)}>
+            <CiEdit className={styles.editBtn}/>
+          </button>
+        </div>
       </article>
     );
 }

@@ -1,5 +1,5 @@
 import Header from "./components/Header/header"
-import Sidebar from "./components/sidebar/Sidebar"
+import Sidebar from "./components/Sidebar/Sidebar"
 import Board from "./components/Board/Board"
 import styles from "./App.module.scss";
 import Modal from "./components/Modal/Modal";
@@ -17,7 +17,23 @@ function App() {
     priority : "high",
   });
 
-  const [Tasks, setTasks] = useState([]);
+  const [Tasks, setTasks] = useState(() => {
+    try{
+      const savedTasks = localStorage.getItem("kanban-tasks");
+      return savedTasks ? JSON.parse(savedTasks) : [];
+    } catch(error){
+      console.error("failed to load tasks", error);
+      localStorage.removeItem("kanban-tasks")
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("kanban-tasks", JSON.stringify(Tasks));
+  },[Tasks])
+
+
+
 
   const [editingTask, setEditingTask] = useState(null);
 
@@ -39,6 +55,22 @@ function App() {
     setEditingTask(editTask)
     setFormData(editTask)
     // console.log(editTask);
+  }
+
+  const [draggedTaskId, setDragedTaskId] = useState(null)
+  
+  function handleDragTask(taskId){
+    setDragedTaskId(taskId)
+  }
+
+  function handleDropColumn(columnId){
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === draggedTaskId ? { ...task, status: columnId } : task,
+      ),
+    );
+
+    setDragedTaskId(null)
   }
 
   const [errors, setErrors] = useState({
@@ -89,9 +121,6 @@ function App() {
 
     setIsModalOpen(false)
   }
-  useEffect(() => {
-    console.log("Tasks updated:", Tasks);
-  }, [Tasks]);
 
   return (
     <div className={styles.app}>
@@ -103,6 +132,8 @@ function App() {
         tasks={Tasks} 
         onDelete={handleDelete} 
         onEdit={handleEdit} 
+        onDragStart={handleDragTask}
+        onDrop={handleDropColumn}
         />
       </main>
 
