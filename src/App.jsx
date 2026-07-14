@@ -32,9 +32,6 @@ function App() {
     localStorage.setItem("kanban-tasks", JSON.stringify(Tasks));
   },[Tasks])
 
-
-
-
   const [editingTask, setEditingTask] = useState(null);
 
   function handleChange(e){
@@ -63,14 +60,42 @@ function App() {
     setDragedTaskId(taskId)
   }
 
+  const [activeColumn, setActiveColumn] = useState(null)
+
   function handleDropColumn(columnId){
     setTasks((prev) =>
       prev.map((task) =>
         task.id === draggedTaskId ? { ...task, status: columnId } : task,
       ),
     );
+  }
 
-    setDragedTaskId(null)
+  function handleDragOver(columnId){
+    setActiveColumn(columnId)
+  }
+
+
+  
+  function handleTaskDrop(targetedTaskId){
+
+     const draggedTask = Tasks.find((task) => task.id === draggedTaskId);
+     const targetedTask = Tasks.find((task) => task.id === targetedTaskId);    
+
+    if (!draggedTask || !targetedTask) {
+      return;
+    }
+     
+     if (draggedTask.status !== targetedTask.status) {
+       return;
+     }
+
+    const updatedTasks = [...Tasks]
+    const dragedTaskIndex = Tasks.findIndex((task) => task.id === draggedTaskId)
+    const targetedTaskIndex = Tasks.findIndex((task) => task.id === targetedTaskId)
+
+    const [movedTask] = updatedTasks.splice(dragedTaskIndex, 1);
+    updatedTasks.splice(targetedTaskIndex, 0, movedTask)
+    setTasks(updatedTasks)
   }
 
   const [errors, setErrors] = useState({
@@ -96,7 +121,7 @@ function App() {
     if(editingTask){
         setTasks((prev) => 
           prev.map((task) => 
-            task.id === editingTask.id ? {...task, ...formData} : task))
+            task.id === editingTask.id ? {...task, ...formData} : task))  
     } else{
         const newTask = {
           id : crypto.randomUUID(),
@@ -134,6 +159,11 @@ function App() {
         onEdit={handleEdit} 
         onDragStart={handleDragTask}
         onDrop={handleDropColumn}
+        activeColumn={activeColumn}
+        setActiveColumn={setActiveColumn}
+        onDragOverColumn={handleDragOver}
+        setDragedTaskId={setDragedTaskId}
+        onTaskDrop={handleTaskDrop}
         />
       </main>
 

@@ -2,14 +2,19 @@ import styles from './TaskCard.module.scss';
 import { CiEdit } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
 
-function TaskCard({task, onDelete, onEdit, onDragStart}){
+function TaskCard({task, onDelete, onEdit, onDragStart, setDragedTaskId, onTaskDrop}){
     return (
       <article
         className={`${styles.TaskCard} ${styles[task.priority.toLowerCase()]}`}
         draggable
-        onDragStart={() => onDragStart(task.id)}
-        onDragEnd={() => console.log("drag end")
-        }
+        onDragStart={() => {onDragStart(task.id)}}
+        onDragEnd={() => setDragedTaskId(null)}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => {
+          e.preventDefault()
+          e.stopPropagation();          
+          onTaskDrop(task.id);
+        }}
       >
         <h3>{task.title}</h3>
 

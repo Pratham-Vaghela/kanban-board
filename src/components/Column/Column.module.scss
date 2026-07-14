@@ -1,11 +1,15 @@
 @use "../../styles/abstracts/variables" as *;
-
+@use "sass:color";
 .column{
     min-height: 500px;
     padding: 1rem;
     background: $secondry-color;
     border-radius: $radius-md;
+    border: 2px solid transparent;
 }
 h2{
     margin-bottom: 1rem;
+}
+.active{
+    border: 2px dashed white;
 }
