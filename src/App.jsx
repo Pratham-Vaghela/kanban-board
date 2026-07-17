@@ -44,6 +44,7 @@ function App() {
 
   function handleDelete(id){
     setTasks((prevTask) => prevTask.filter((task) => task.id !== id))
+    localStorage.removeItem("Tasks")
   }
 
   function handleEdit(id){
@@ -52,8 +53,8 @@ function App() {
     setEditingTask(editTask)
     setFormData(editTask)
     // console.log(editTask);
-  }
-
+  }  
+  
   const [draggedTaskId, setDragedTaskId] = useState(null)
   
   function handleDragTask(taskId){
@@ -147,6 +148,16 @@ function App() {
     setIsModalOpen(false)
   }
 
+  function handleClose(){
+    setIsModalOpen(false);
+    setFormData({
+      title: "",
+      description: "",
+      status: "todo",
+      priority: "high",
+    });
+  }  
+
   return (
     <div className={styles.app}>
       <Header onAddTask={() => setIsModalOpen(true)} />
@@ -168,7 +179,7 @@ function App() {
       </main>
 
       {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
+        <Modal onClose={() => handleClose()}>
           <TaskForm
             errors={errors}
             formData={formData}
